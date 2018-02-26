@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/darrenrevans10/nytreact/issues"
   },
-  "homepage": "https://github.com/darrenrevans10/nytreact#readme"
+  "homepage": "https://github.com/darrenrevans10/nytreact#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.7"
+  }
 }
