@@ -2,18 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
-import Panel from './components/Panel';
-import Footer from './components/Footer';
+import { Container } from './components/Grid';
+import Saved from './pages/Saved';
+import Search from './pages/Search';
 import Home from './pages/Home';
 
 const App = () =>
   <Router>
-    <div>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/articles" component={Home} />
-      </Switch>
-    </div>
+    <Container>
+    <Nav />
+    <Switch>
+      <Route path="/:saved" component={Saved} />
+      <Route path="/" component={Search} />
+    </Switch>
+  </Container>
   </Router>;
 
 export default App;

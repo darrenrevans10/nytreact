@@ -1,23 +1,44 @@
-import axios from "axios";
+import axios from 'axios';
+
+const authKey = 'b9f91d369ff59547cd47b931d8cbc56b:0:74623931';
+const queryURLBase =
+  'https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=' +
+  authKey +
+  '&q=';
 
 export default {
-  // Query NYT API
-  searchNYT: function(topic, startYear, endYear) {
-    const authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
-    const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
-    authKey + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
+  // // Gets all articles
+  getArticles: searchValues => {
+    var queryURL = queryURLBase + searchValues.title;
+
+    // Number of results the user would like displayed
+    // numResults = 5;
+
+    // If the user provides a startYear -- the startYear will be included in the queryURL
+    if (parseInt(searchValues.startYear, 10)) {
+      queryURL = queryURL + '&begin_date=' + searchValues.startYear + '0101';
+    }
+
+    // If the user provides a startYear -- the endYear will be included in the queryURL
+    if (parseInt(searchValues.endYear, 10)) {
+      queryURL = queryURL + '&end_date=' + searchValues.endYear + '0101';
+    }
+
     return axios.get(queryURL);
   },
-  // Retrieves saved articles from the db
-  getArticles: () => {
-    return axios.get("/api/articles");
+
+  // Gets all articles
+  getSavedArticles: () => {
+    return axios.get('/api/articles');
   },
-  // Saves a new article to the db
-  saveArticle: (articleData) => {
-    return axios.post("/api/articles", articleData);
+
+  // Deletes the article with the given id
+  deleteArticle: id => {
+    return axios.delete('/api/articles/' + id);
   },
-  // Deletes an article from the db
-  deleteArticle: (articleId) => {
-    return axios.delete("/api/articles/" + articleId._id);
+
+  // Saves a article to the database
+  saveArticle: articleData => {
+    return axios.post('/api/articles', articleData);
   }
 };
